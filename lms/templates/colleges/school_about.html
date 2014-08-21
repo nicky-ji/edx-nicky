@@ -1,0 +1,39 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${static.url('sass/index.css')}" />
+<link rel="stylesheet" type="text/css" href="${static.url('sass/reset.css')}" />
+
+<%! from django.utils.translation import ugettext as _ %>
+<%!
+  from django.core.urlresolvers import reverse
+  from courseware.courses import course_image_url, get_course_about_section
+  from django.conf import settings
+
+%>
+<%namespace name='static' file='../static_content.html'/>
+<%! from microsite_configuration import microsite %>
+
+<%inherit file="../main.html" />
+   <section class="wrap">
+		<ul class="list_style">
+            %for course in course_list:
+			<li class="cf">
+				<div class="img fl">
+					<div class="cover">
+						<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}"title="" target="_blank">点击查看</a>
+					</div>
+					<img src="${course_image_url(course)}" alt="" title="">
+				</div>
+				<div class="fl center">
+					<p class="name">${course.display_org_with_default} </p>
+					<h3>
+					<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_number_with_default} ${course.display_name_with_default}</a>
+					</h3>
+					<p class="txt">${course.display_name_with_default}是一门好的课程</p>
+				</div>
+				<div class="right_edx">
+					<p>由 ${course.display_org_with_default} 提供</p>
+				</div>
+			</li>
+            %endfor
+		</ul>
+   </section>

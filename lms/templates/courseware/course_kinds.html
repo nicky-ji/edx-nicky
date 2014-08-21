@@ -1,0 +1,147 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${static.url('sass/index.css')}" />
+<link rel="stylesheet" type="text/css" href="${static.url('sass/reset.css')}" />
+
+<%! from django.utils.translation import ugettext as _ %>
+<%!
+  from django.core.urlresolvers import reverse
+  from courseware.courses import course_image_url, get_course_about_section
+  from django.conf import settings
+
+%>
+<%namespace name='static' file='../static_content.html'/>
+<%! from microsite_configuration import microsite %>
+
+<%inherit file="../main.html" />
+
+<div class="ke_mu cloud">
+    <section class="banner">
+	<div>
+		<div class="txt">
+            <br><br>
+			<h2>${course_kind}</h2>
+		</div>
+	</div>
+</section>
+
+<article id="article">
+	<div class="wrap">
+	<nav>
+		<ul class="cf" id="nav">
+		<li class="on">初级<span>（${plen}门课）</span></li>
+		<li>中级<span>（${mlen}门课）</span></li>
+		<li>高级<span>（${slen}门课）</span></li>
+		<li class="online">即将上线<span>（0门课）</span></li>
+		</ul>
+	</nav>
+	<section class="first">
+		<ul class="list_style">
+            %for course in plist:
+			<li class="cf">
+				<div class="img fl">
+					<div class="cover">
+						<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}"title="" target="_blank">点击查看</a>
+					</div>
+					<img src="${course_image_url(course)}" alt="" title="">
+				</div>
+				<div class="fl center">
+					<p class="name">${course.display_org_with_default}   ${course_kind} </p>
+					<h3>
+					<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_number_with_default} ${course.display_name_with_default}</a>
+					</h3>
+					<p class="txt">${course.display_name_with_default}是一门好的课程</p>
+				</div>
+				<div class="right_edx">
+					<p>由 ${course.display_org_with_default} 提供</p>
+				</div>
+			</li>
+            %endfor
+		</ul>
+	</section>
+	<section>
+		<nav>
+			<ul class="cf">
+				<li>初级<span>（${plen}门课）</span></li>
+				<li class="on">中级<span>（${mlen}门课）</span></li>
+				<li>高级<span>（${slen}门课）</span></li>
+				<li class="online">即将上线<span>（0门课）</span></li>
+			</ul>
+		</nav>
+			<ul class="list_style">
+                %for course in mlist:
+				<li class="cf">
+				<div class="img fl">
+					<div class="cover">
+						<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}"title="" target="_blank">点击查看</a>
+					</div>
+					<img src="${course_image_url(course)}" alt="" title="">
+				</div>
+				<div class="fl center">
+					<p class="name">${course.display_org_with_default}   ${course_kind} </p>
+					<h3>
+					<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_number_with_default} ${course.display_name_with_default}</a>
+					</h3>
+					<p class="txt">${course.display_name_with_default}是一门好的课程</p>
+				</div>
+				<div class="right_edx">
+					<p>由 ${course.display_org_with_default} 提供</p>
+				</div>
+			</li>
+                %endfor
+			</ul>
+		</section>
+		<section>
+			<nav>
+				<ul class="cf">
+					<li>初级<span>（${plen}门课）</span></li>
+					<li>中级<span>（${mlen}门课）</span></li>
+					<li class="on">高级<span>（${slen}门课）</span></li>
+					<li class="online">即将上线<span>（0门课）</span></li>
+				</ul>
+			</nav>
+			<ul class="list_style">
+                %for course in slist:
+				<li class="cf">
+				<div class="img fl">
+					<div class="cover">
+						<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}"title="" target="_blank">点击查看</a>
+					</div>
+					<img src="${course_image_url(course)}" alt="" title="">
+				</div>
+				<div class="fl center">
+					<p class="name">${course.display_org_with_default}   ${course_kind} </p>
+					<h3>
+					<a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_number_with_default}<span>${course.display_name_with_default}</span></a>
+					</h3>
+					<p class="txt">${course.display_name_with_default}是一门好的课程</p>
+				</div>
+				<div class="right_edx">
+					<p>由 ${course.display_org_with_default} 提供</p>
+				</div>
+
+				</li>
+              %endfor
+				</ul>
+		</section>
+		<section>
+			<nav>
+				<ul class="cf">
+					<li>入门<span>（3门课）</span></li>
+					<li>进阶<span>（3门课）</span></li>
+					<li>探索<span>（2门课）</span></li>
+					<li class="online on">即将上线<span>（0门课）</span></li>
+				</ul>
+			</nav>
+			<ul class="list_style">
+			</ul>
+		</section>
+	</div>
+</article>
+
+<section class="wrap start_learning">
+	<h2>喜欢"${course_kind}"想学更多？</h2>
+	<a href="${marketing_link('COURSES')}" title="">想要学什么<i></i></a>
+</section>
+
+</div>
+

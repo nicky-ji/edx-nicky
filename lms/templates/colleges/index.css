@@ -1,0 +1,164 @@
+@charset "UTF-8";
+.wrap {
+	width:1100px;
+	margin:0 auto
+}
+
+.school_list_page #banner {
+	min-width:1100px;
+	height:700px;
+	overflow:hidden;
+	position:relative;
+	visibility:hidden
+}
+.school_list_page #banner .txt {
+	text-align:center;
+	color:#FFF;
+	text-shadow:0 0 6px #000;
+	transition:all .5s;
+	opacity:0;
+	position:relative;
+	top:-20px
+}
+.school_list_page #banner div.txt_on {
+	top:0;
+	opacity:1
+}
+.school_list_page #banner .txt h3 {
+	font-size:40px;
+	margin-top:350px;
+	font-weight:900
+}
+.school_list_page #banner .txt p {
+	padding:20px 0
+}
+.school_list_page #banner .txt a {
+	display:block;
+	width:140px;
+	height:45px;
+	font-size:16px;
+	margin:0 auto;
+	background:#4183ad;
+	line-height:45px;
+	color:#FFF
+}
+.school_list_page #banner .txt a:hover {
+	background:#4198C9;
+	transition:all .3s;
+	-webkit-transform:all .3s
+}
+.school_list_page #banner>ul {
+	transition:left .5s ease-in-out;
+	-webkit-transition:left .5s ease-in-out;
+	position:absolute;
+	height:700px;
+	left:0;
+	top:0
+}
+.school_list_page #banner>ul li {
+	float:left;
+	height:700px
+}
+.school_list_page #banner>ol {
+	position:absolute;
+	bottom:20px;
+	width:100%;
+	text-align:center;
+	left:0
+}
+.school_list_page #banner>ol li {
+	display:inline-block;
+	width:18px;
+	height:18px;
+	background:rgba(255,255,255,0.4);
+	border-radius:50%;
+	cursor:pointer;
+	margin:0 5px
+}
+.school_list_page #banner>ol li.on {
+	background:#fff
+}
+.school_list_page .hz_school>ul {
+	border-top:1px solid #CCC;
+	border-left:1px solid #CCC;
+	width:1095px
+}
+.school_list_page .hz_school>ul>li {
+	float:left;
+	border-bottom:1px solid #CCC;
+	border-right:1px solid #CCC;
+	text-align:center
+}
+.school_list_page .hz_school>ul>li a {
+	display:block;
+	width:218px;
+	height:218px;
+	position:relative;
+	background:#fff
+}
+.school_list_page .hz_school>ul>li>a>div {
+	position:absolute;
+	left:0;
+	top:0
+}
+
+.school_list_page .hz_school .img span {
+	display:table-cell;
+	vertical-align:bottom
+}
+.school_list_page .hz_school .text_con {
+	width:218px;
+	height:218px;
+	color:#FFF;
+	text-align:center;
+	background-color:#9c3285;
+	
+}
+.school_list_page .hz_school>ul>li .text_con h3 {
+	margin:30px 0 20px 0;
+	font-size:24px
+}
+
+.school_list_page .hz_school>ul>li .text_con p {
+	padding:0 0 10px
+}
+.school_list_page .hz_school>ul>li .text_con span {
+	color:#FFF;
+	background:#fe9d2b;
+	width:100px;
+	padding:8px 0;
+	position:absolute;
+	left:60px;
+	bottom:30px
+}
+.school_list_page .hz_school>ul>li .text_con span:hover {
+	background:#EC8000
+}
+.school_list_page .hz_school>h2 {
+	color:#333;
+	padding:30px 0 20px 0;
+	font-size:30px
+}
+.school_list_page .hz_school_w {
+	background:#f4f4f4;
+	padding:0 0 120px 0
+}
+.school_list_page .hz_school .img span img {
+	display:block
+}
+.school_list_page .zj_list {
+	background:#a2cfe0;
+	margin-bottom:100px
+}
+.school_list_page .zj_list .text_con {
+	background:#4183ad
+}
+.school_list_page .zj_list ul {
+	border:none
+}
+.school_list_page .zj_list ul>li {
+	border-top:1px solid #ccc
+}
+.school_list_page .zj_list h2 {
+	color:#FFF
+}
