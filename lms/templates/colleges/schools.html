@@ -1,0 +1,47 @@
+<meta charset="UTF-8">
+<link rel="stylesheet" type="text/css" href="${static.url('sass/index.css')}" />
+<link rel="stylesheet" type="text/css" href="${static.url('sass/reset.css')}" />
+
+<%! from django.utils.translation import ugettext as _ %>
+<%!
+  from django.core.urlresolvers import reverse
+  from colleges.views import get_course_num
+  from django.conf import settings
+%>
+<%namespace name='static' file='../static_content.html'/>
+<%! from microsite_configuration import microsite %>
+
+<%inherit file="../main.html" />
+
+<%
+ schoolist = []
+ for course in courses:
+        org = course.display_org_with_default
+        if org not in schoolist:
+            schoolist.append(org)
+%>
+
+
+<div class="school_list_page">
+<div class="hz_school_w">
+	<section class="wrap hz_school">
+		<h2>合作院校</h2>
+		<ul class="cf">
+            %for school in schoolist:
+             <%
+                  course_num = get_course_num(courses, school)
+              %>
+			<li>
+				<a href="${reverse('about_school', args=[school])}" title="" target="_blank">
+				<div class="text_con">
+						<h3>${school}</h3>
+						<p>${course_num}门课程</p>
+						<p><span>立刻学习</span></p>
+			    </div>
+				</a>
+			</li>
+            %endfor
+		</ul>
+        </section>
+	</div>
+</div>

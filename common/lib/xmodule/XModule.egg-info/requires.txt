@@ -1,0 +1,6 @@
+distribute
+docopt
+capa
+path.py
+webob
+opaque-keys

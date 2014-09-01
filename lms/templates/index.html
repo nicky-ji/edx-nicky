@@ -1,0 +1,187 @@
+<link rel="stylesheet" type="text/css" href="./static/sass/index.css">
+<link rel="stylesheet" type="text/css" href="./static/sass/reset.css">
+<%! from django.utils.translation import ugettext as _ %>
+
+<%! from django.core.urlresolvers import reverse %>
+<%inherit file="main.html" />
+<%namespace name='static' file='static_content.html'/>
+
+<%! from microsite_configuration import microsite %>
+<%! from courseware.courses import course_image_url, get_course_about_section%>
+<%! from courseware.category import get_primary_course, get_Intermediate_course, get_senior_course%>
+<%
+  homepage_overlay_html = microsite.get_value('homepage_overlay_html')
+
+  show_homepage_promo_video = microsite.get_value('show_homepage_promo_video', True)
+  homepage_promo_video_youtube_id = microsite.get_value('homepage_promo_video_youtube_id', "XNaiOGxWeto")
+
+  show_partners = microsite.get_value('show_partners', True)
+  kindlist=[]
+  dict = {}
+  primary = []
+
+  for course in courses:
+        primary.append(course)
+        if course.get_course_kinds !="" :
+             if course.get_course_kinds not in kindlist:
+                  kindlist.append(course.get_course_kinds)
+%>
+
+<section class="home">
+  <header>
+    <div class="outer-wrapper">
+      <div class="title">
+        <hgroup>
+          % if homepage_overlay_html:
+            ${homepage_overlay_html}
+          % else:
+            % if self.stanford_theme_enabled():
+              <h1>${_("Free courses from <strong>{university_name}</strong>").format(university_name="Stanford")}</h1>
+            % else:
+              <h1>${_("The Future of Online Education")}</h1>
+            % endif
+            <h2>${_("For anyone, anywhere, anytime")}</h2>
+          % endif
+        </hgroup>
+
+        ## Disable social buttons for non-edX sites
+        % if not self.theme_enabled():
+          <section class="actions">
+            <div class="main-cta">
+              <a href="#signup-modal" id="signup_action" class="find-courses" rel="leanModal">${_("Sign Up")}</a>
+            </div>
+
+            <div class="secondary-actions">
+              <div class="social-sharing">
+                <div class="sharing-message">${_("Stay up to date with all {platform_name} has to offer!").format(platform_name=settings.PLATFORM_NAME)}</div>
+                <a href="https://twitter.com/edXOnline" class="share">
+                  <img src="${static.url('images/social/twitter-sharing.png')}">
+                </a>
+                <a href="http://www.facebook.com/EdxOnline" class="share">
+                  <img src="${static.url('images/social/facebook-sharing.png')}">
+                </a>
+                <a href="https://plus.google.com/108235383044095082735/posts" class="share">
+                  <img src="${static.url('images/social/google-plus-sharing.png')}">
+                </a>
+              </div>
+            </div>
+          </section>
+          % endif
+      </div>
+
+      % if show_homepage_promo_video:
+        <a href="#video-modal" class="media" rel="leanModal">
+          <div class="hero">
+            <div class="play-intro"></div>
+          </div>
+        </a>
+      % endif
+    </div>
+  </header>
+
+  <section>
+      <br><br>
+      <p style="text-align: center"><font font-size="5px">免费学习最好的课程！选择感兴趣的领域，加入课堂，开始学习吧！</font> </p>
+      <br><br>
+  </section>
+
+  <%
+     foo = ["cloud", 'data', 'venture', 'more']
+     from random import choice
+
+  %>
+
+  <div>
+  <section  class="wrap index_kc_list" id="index_kc_list">
+
+    <ul class="cf">
+    %for kinds in kindlist:
+        <% index = choice(foo)%>
+
+	<li class="${index}">
+		<div class="title">
+		<a class="title_a" href="${reverse('about_kinds', args=[kinds])}" title="" target="_blank"><i><img src="${static.url('images/index_cloud.png')}" alt="云计算" title="云计算"></i><p>${kinds}</p></a>
+		</div>
+		<ol>
+             <li>
+             <strong>初级</strong>
+              <%  plist = get_primary_course(courses,kinds) %>
+              %for course in plist:
+		           <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_name_with_default}</a>
+              %endfor
+             </li>
+             <li>
+             <strong>中级</strong>
+              <%  mlist = get_Intermediate_course(courses,kinds) %>
+              %for course in mlist:
+		       <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_name_with_default}</a>
+              %endfor
+                </li>
+                    <li>
+                    <strong>高级</strong>
+               <%  slist = get_senior_course(courses,kinds) %>
+              %for course in slist:
+		            <a href="${reverse('about_course', args=[course.id.to_deprecated_string()])}" title="" target="_blank">${course.display_name_with_default}</a>
+              %endfor
+                    </li>
+
+		</ol>
+        <% total = len(plist) + len(slist) + len(mlist) %>
+		<p><a href="" title="" target="_blank">${total}门课程<i></i></a></p>
+        <div class="index_alert cf">
+	    <img class="fl" src="" alt="" title="">
+	    <div class="fl"></div></div></li>
+     %endfor
+	</ul>
+
+</section>
+</div>
+
+
+  <section class="container">
+    <section class="highlighted-courses">
+      % if settings.FEATURES.get('COURSES_ARE_BROWSABLE'):
+        <section class="courses">
+            <ul class="courses-listing">
+            %for course in courses:
+
+              <li class="courses-listing-item">
+                <%include file="course.html" args="course=course" />
+              </li>
+            %endfor
+            </ul>
+        </section>
+      % endif
+
+    </section>
+  </section>
+</section>
+
+<section id="video-modal" class="modal home-page-video-modal video-modal">
+  <div class="inner-wrapper">
+    <%
+      youtube_video_id = homepage_promo_video_youtube_id
+      if self.stanford_theme_enabled():
+        youtube_video_id = "2gmreZObCY4"
+    %>
+    <iframe width="640" height="360" src="//www.youtube.com/embed/${youtube_video_id}?showinfo=0" frameborder="0" allowfullscreen></iframe>
+  </div>
+</section>
+
+<%block name="js_extra">
+   <script type="text/javascript">
+      $(window).load(function() {
+         if(getParameterByName('next')) {
+              $('#login').trigger("click");
+         }
+      })
+   </script>
+</%block>
+
+% if show_signup_immediately is not UNDEFINED:
+  ## NOTE: This won't work in production, because anonymous views are cached, so it will
+  ## show either with or without this extra js for 3 minutes at a time.
+<script type="text/javascript">
+  $(window).load(function() {$('#signup_action').trigger("click");});
+</script>
+% endif
